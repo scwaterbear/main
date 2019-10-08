@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.BloodSugar;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -37,9 +38,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_bloodSugar() throws Exception {
-        final String bloodSugar = "99.9";
+        final BloodSugar bloodSugar = new BloodSugar("99.9");
         BloodSugarCommand command = (BloodSugarCommand) parser.parseCommand(BloodSugarCommand.COMMAND_WORD + " "
-            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_BLOODSUGAR + bloodSugar);
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_BLOODSUGAR + bloodSugar.value);
         assertEquals(new BloodSugarCommand(INDEX_FIRST_PERSON, bloodSugar), command);
     }
 

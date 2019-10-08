@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.BloodSugar;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for BloodSugarCommand.
@@ -26,18 +27,20 @@ public class BloodSugarCommandTest {
 
     @Test
     public void execute() {
-        final String bloodsugar = "99.9";
+        final BloodSugar bloodSugar = new BloodSugar("99.9");
 
-        assertCommandFailure(new BloodSugarCommand(INDEX_FIRST_PERSON, bloodsugar), model,
-            String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), bloodsugar));
+        assertCommandFailure(new BloodSugarCommand(INDEX_FIRST_PERSON, bloodSugar), model,
+            String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), bloodSugar));
     }
 
     @Test
     public void equals() {
-        final BloodSugarCommand standardCommand = new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_AMY);
+        final BloodSugarCommand standardCommand = new BloodSugarCommand(INDEX_FIRST_PERSON,
+            new BloodSugar(VALID_BLOODSUGAR_AMY));
 
         // same values -> returns true
-        BloodSugarCommand commandWithSameValues = new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_AMY);
+        BloodSugarCommand commandWithSameValues = new BloodSugarCommand(INDEX_FIRST_PERSON,
+            new BloodSugar(VALID_BLOODSUGAR_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -50,9 +53,11 @@ public class BloodSugarCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_SECOND_PERSON, VALID_BLOODSUGAR_AMY)));
+        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_SECOND_PERSON,
+            new BloodSugar(VALID_BLOODSUGAR_AMY))));
 
         // different remark -> returns false
-        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_BOB)));
+        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_FIRST_PERSON,
+            new BloodSugar(VALID_BLOODSUGAR_BOB))));
     }
 }

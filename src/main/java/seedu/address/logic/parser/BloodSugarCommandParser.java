@@ -8,6 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.BloodSugarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.BloodSugar;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
@@ -29,8 +30,8 @@ public class BloodSugarCommandParser implements Parser<BloodSugarCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BloodSugarCommand.MESSAGE_USAGE), ive);
         }
 
-        String bloodsugar = argMultimap.getValue(PREFIX_BLOODSUGAR).orElse("");
+        String bloodSugar = argMultimap.getValue(PREFIX_BLOODSUGAR).orElse("");
 
-        return new BloodSugarCommand(index, bloodsugar);
+        return new BloodSugarCommand(index, new BloodSugar(bloodSugar));
     }
 }

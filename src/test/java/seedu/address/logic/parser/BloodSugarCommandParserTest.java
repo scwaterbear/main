@@ -10,22 +10,24 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.BloodSugarCommand;
+import seedu.address.model.person.BloodSugar;
 
 public class BloodSugarCommandParserTest {
     private BloodSugarCommandParser parser = new BloodSugarCommandParser();
-    private final String nonEmptyRemark = "99.9";
+    private final String nonEmptyBloodSugar = "99.9";
 
     @Test
     public void parse_indexSpecified_success() {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_BLOODSUGAR + nonEmptyRemark;
-        BloodSugarCommand expectedCommand = new BloodSugarCommand(INDEX_FIRST_PERSON, nonEmptyRemark);
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_BLOODSUGAR + nonEmptyBloodSugar;
+        BloodSugarCommand expectedCommand = new BloodSugarCommand(INDEX_FIRST_PERSON,
+            new BloodSugar(nonEmptyBloodSugar));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // no remark
         userInput = targetIndex.getOneBased() + " " + PREFIX_BLOODSUGAR;
-        expectedCommand = new BloodSugarCommand(INDEX_FIRST_PERSON, "");
+        expectedCommand = new BloodSugarCommand(INDEX_FIRST_PERSON, new BloodSugar(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -37,6 +39,6 @@ public class BloodSugarCommandParserTest {
         assertParseFailure(parser, BloodSugarCommand.COMMAND_WORD, expectedMessage);
 
         // no index
-        assertParseFailure(parser, BloodSugarCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
+        assertParseFailure(parser, BloodSugarCommand.COMMAND_WORD + " " + nonEmptyBloodSugar, expectedMessage);
     }
 }
