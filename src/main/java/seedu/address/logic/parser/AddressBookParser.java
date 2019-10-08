@@ -70,7 +70,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case BloodSugarCommand.COMMAND_WORD:
-            return new BloodSugarCommand();
+            return new BloodSugarCommand().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

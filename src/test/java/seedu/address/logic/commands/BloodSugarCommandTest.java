@@ -1,7 +1,14 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BLOODSUGAR_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BLOODSUGAR_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.BloodSugarCommand.MESSAGE_NOT_IMPLEMENTED_YET;
+import static seedu.address.logic.commands.BloodSugarCommand.MESSAGE_ARGUMENTS;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +26,33 @@ public class BloodSugarCommandTest {
 
     @Test
     public void execute() {
-        assertCommandFailure(new BloodSugarCommand(), model, MESSAGE_NOT_IMPLEMENTED_YET);
+        final String bloodsugar = "99.9";
+
+        assertCommandFailure(new BloodSugarCommand(INDEX_FIRST_PERSON, bloodsugar), model,
+            String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), bloodsugar));
+    }
+
+    @Test
+    public void equals() {
+        final BloodSugarCommand standardCommand = new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_AMY);
+
+        // same values -> returns true
+        BloodSugarCommand commandWithSameValues = new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_AMY);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_SECOND_PERSON, VALID_BLOODSUGAR_AMY)));
+
+        // different remark -> returns false
+        assertFalse(standardCommand.equals(new BloodSugarCommand(INDEX_FIRST_PERSON, VALID_BLOODSUGAR_BOB)));
     }
 }

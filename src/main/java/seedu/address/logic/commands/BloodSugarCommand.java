@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODSUGAR;
+
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -13,15 +17,46 @@ public class BloodSugarCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the bloodsugar level"
         + "Existing bloodsugar will be overwritten by the input.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "b/ [BLOODSUGAR]\n"
+        + PREFIX_BLOODSUGAR + "[BLOODSUGAR]\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + "b/ 89.0.";
+        + PREFIX_BLOODSUGAR + "89.0.";
 
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Bloodsugar: %2$d";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Bloodsugar command not implemented yet";
+    private final Index index;
+    private final String bloodsugar;
+
+    /**
+     * @param index of the data entry
+     * @param bloodsugar at that moment
+     */
+    public BloodSugarCommand(Index index, String bloodsugar) {
+        requireAllNonNull(index, bloodsugar);
+
+        this.index = index;
+        this.bloodsugar = bloodsugar;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
+        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), bloodsugar));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof BloodSugarCommand)) {
+            return false;
+        }
+
+        // state check
+        BloodSugarCommand e = (BloodSugarCommand) other;
+        return index.equals(e.index)
+            && bloodsugar.equals(e.bloodsugar);
     }
 }
