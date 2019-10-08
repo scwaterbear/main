@@ -29,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String bloodSugar;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -37,11 +38,12 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("bloodSugar") String bloodSugar, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.bloodSugar = bloodSugar;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -55,6 +57,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        bloodSugar = source.getBloodSugar().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -103,8 +106,10 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final BloodSugar modelBloodSugar = new BloodSugar(""); //TODO: Implement parsing and marshalling in the storage commit.
-
+        if (bloodSugar == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodSugar.class.getSimpleName()));
+        }
+        final BloodSugar modelBloodSugar = new BloodSugar(bloodSugar);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelBloodSugar, modelTags);
     }
