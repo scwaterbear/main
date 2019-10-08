@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.BloodSugar;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -20,11 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_BLOODSUGAR = "34.5";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private BloodSugar bloodSugar;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -32,6 +35,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        bloodSugar = new BloodSugar(DEFAULT_BLOODSUGAR);
         tags = new HashSet<>();
     }
 
@@ -43,7 +47,16 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        bloodSugar = personToCopy.getBloodSugar();
         tags = new HashSet<>(personToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withBloodSugar(String bloodSugar) {
+        this.bloodSugar = new BloodSugar(bloodSugar);
+        return this;
     }
 
     /**
@@ -87,7 +100,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, bloodSugar, tags);
     }
 
 }
