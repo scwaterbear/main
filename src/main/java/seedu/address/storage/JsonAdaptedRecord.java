@@ -56,9 +56,9 @@ class JsonAdaptedRecord {
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
     public Record toModelType() throws IllegalValueException {
-        final List<Tag> RecordTags = new ArrayList<>();
+        final List<Tag> recordTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            RecordTags.add(tag.toModelType());
+            recordTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -70,14 +70,15 @@ class JsonAdaptedRecord {
         final Name modelName = new Name(name);
 
         if (bloodSugar == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodSugar.class.getSimpleName()));
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, BloodSugar.class.getSimpleName()));
         }
         if (!BloodSugar.isValidBloodSugar(bloodSugar)) {
             throw new IllegalValueException(BloodSugar.MESSAGE_CONSTRAINTS);
         }
         final BloodSugar modelBloodSugar = new BloodSugar(bloodSugar);
 
-        final Set<Tag> modelTags = new HashSet<>(RecordTags);
+        final Set<Tag> modelTags = new HashSet<>(recordTags);
         return new Record(modelName, modelBloodSugar, modelTags);
     }
 
