@@ -2,8 +2,8 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BLOODSUGAR_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -29,26 +29,26 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // different phone -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different blood sugar -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withBloodSugar(VALID_BLOODSUGAR_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same bloodsugar, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        //uncomment test when there are more than 2 data fields. Now there is name and phone only.
+        //uncomment test when there are more than 2 data fields. Now there is name and blood sugar only.
         // same name, different attributes -> returns true
-        //editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB)
+        //editedAlice = new PersonBuilder(ALICE).withBloodSugar(VALID_BLOODSUGAR_BOB)
         //.withTags(VALID_TAG_HUSBAND).build();
         //assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same blood sugar, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
@@ -75,8 +75,8 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different blood sugar -> returns false
+        editedAlice = new PersonBuilder(ALICE).withBloodSugar(VALID_BLOODSUGAR_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
