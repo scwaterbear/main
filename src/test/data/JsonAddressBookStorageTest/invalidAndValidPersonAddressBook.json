@@ -1,9 +1,0 @@
-{
-  "persons": [ {
-    "name": "Valid Person",
-    "bloodSugar": "9482424"
-  }, {
-    "name": "Person With Invalid BloodSugar Field",
-    "bloodSugar": "948asdf2424"
-  } ]
-}

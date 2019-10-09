@@ -1,0 +1,9 @@
+{
+  "records": [ {
+    "name": "Valid Record",
+    "bloodSugar": "9482424"
+  }, {
+    "name": "Record With Invalid BloodSugar Field",
+    "bloodSugar": "948asdf2424"
+  } ]
+}
