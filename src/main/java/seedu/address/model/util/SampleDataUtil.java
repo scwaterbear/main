@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.BloodSugar;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,22 +17,22 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"),
+            new Person(new Name("Alex Yeoh"), new BloodSugar("87438807"),
 
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"),
+            new Person(new Name("Bernice Yu"), new BloodSugar("99272758"),
 
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
+            new Person(new Name("Charlotte Oliveiro"), new BloodSugar("93210283"),
 
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"),
+            new Person(new Name("David Li"), new BloodSugar("91031282"),
 
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
+            new Person(new Name("Irfan Ibrahim"), new BloodSugar("92492021"),
 
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
+            new Person(new Name("Roy Balakrishnan"), new BloodSugar("92624417"),
 
                 getTagSet("colleagues"))
         };

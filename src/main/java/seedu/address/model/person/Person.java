@@ -17,17 +17,17 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final BloodSugar bloodSugar;
 
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Set<Tag> tags) {
-        requireAllNonNull(name, phone, tags);
+    public Person(Name name, BloodSugar bloodSugar, Set<Tag> tags) {
+        requireAllNonNull(name, bloodSugar, tags);
         this.name = name;
-        this.phone = phone;
+        this.bloodSugar = bloodSugar;
         this.tags.addAll(tags);
     }
 
@@ -35,8 +35,8 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public BloodSugar getBloodSugar() {
+        return bloodSugar;
     }
 
     /**
@@ -58,7 +58,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone());
+                && otherPerson.getBloodSugar().equals(getBloodSugar());
     }
 
     /**
@@ -77,22 +77,22 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getBloodSugar().equals(getBloodSugar())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, bloodSugar, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" BloodSugar: ")
+                .append(getBloodSugar())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

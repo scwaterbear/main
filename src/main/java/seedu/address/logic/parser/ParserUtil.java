@@ -9,8 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.BloodSugar;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -49,18 +49,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String bloodSugar} into a {@code BloodSugar}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code bloodSugar} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static BloodSugar parseBloodSugar(String bloodSugar) throws ParseException {
+        requireNonNull(bloodSugar);
+        String trimmedBloodSugar = bloodSugar.trim();
+        if (!BloodSugar.isValidBloodSugar(trimmedBloodSugar)) {
+            throw new ParseException(BloodSugar.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+        return new BloodSugar(trimmedBloodSugar);
     }
 
     /**

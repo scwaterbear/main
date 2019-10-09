@@ -14,17 +14,17 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.BloodSugar;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_BLOODSUGAR = "+651234";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_BLOODSUGAR = "123456";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -74,26 +74,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseBloodSugar_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseBloodSugar((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseBloodSugar_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseBloodSugar(INVALID_BLOODSUGAR));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseBloodSugar_validValueWithoutWhitespace_returnsBloodSugar() throws Exception {
+        BloodSugar expectedBloodSugar = new BloodSugar(VALID_BLOODSUGAR);
+        assertEquals(expectedBloodSugar, ParserUtil.parseBloodSugar(VALID_BLOODSUGAR));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseBloodSugar_validValueWithWhitespace_returnsTrimmedBloodSugar() throws Exception {
+        String bloodSugarWithWhitespace = WHITESPACE + VALID_BLOODSUGAR + WHITESPACE;
+        BloodSugar expectedBloodSugar = new BloodSugar(VALID_BLOODSUGAR);
+        assertEquals(expectedBloodSugar, ParserUtil.parseBloodSugar(bloodSugarWithWhitespace));
     }
 
     @Test
