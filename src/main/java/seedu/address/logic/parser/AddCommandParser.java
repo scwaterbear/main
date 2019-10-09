@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.BloodSugar;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.BloodSugar;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,9 +38,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         BloodSugar bloodSugar = ParserUtil.parseBloodSugar(argMultimap.getValue(PREFIX_BLOODSUGAR).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, bloodSugar, tagList);
+        Record record = new Record(name, bloodSugar, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(record);
     }
 
     /**

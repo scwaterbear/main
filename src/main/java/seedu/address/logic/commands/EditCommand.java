@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BLOODSUGAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECORDS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,20 +17,20 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.BloodSugar;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.record.BloodSugar;
+import seedu.address.model.record.Name;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing record in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the record identified "
+            + "by the index number used in the displayed record list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -39,58 +39,58 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_BLOODSUGAR + "91234567 ";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_RECORD_SUCCESS = "Edited Record: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditRecordDescriptor editRecordDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the record in the filtered record list to edit
+     * @param editRecordDescriptor details to edit the record with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditRecordDescriptor editRecordDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editRecordDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editRecordDescriptor = new EditRecordDescriptor(editRecordDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Record> lastShownList = model.getFilteredRecordList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Record recordToEdit = lastShownList.get(index.getZeroBased());
+        Record editedRecord = createEditedRecord(recordToEdit, editRecordDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!recordToEdit.isSameRecord(editedRecord) && model.hasRecord(editedRecord)) {
+            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setRecord(recordToEdit, editedRecord);
+        model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
+        return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Record} with the details of {@code recordToEdit}
+     * edited with {@code editRecordDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Record createEditedRecord(Record recordToEdit, EditRecordDescriptor editRecordDescriptor) {
+        assert recordToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        BloodSugar updatedBloodSugar = editPersonDescriptor.getBloodSugar().orElse(personToEdit.getBloodSugar());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Name updatedName = editRecordDescriptor.getName().orElse(recordToEdit.getName());
+        BloodSugar updatedBloodSugar = editRecordDescriptor.getBloodSugar().orElse(recordToEdit.getBloodSugar());
+        Set<Tag> updatedTags = editRecordDescriptor.getTags().orElse(recordToEdit.getTags());
 
-        return new Person(updatedName, updatedBloodSugar, updatedTags);
+        return new Record(updatedName, updatedBloodSugar, updatedTags);
     }
 
     @Override
@@ -108,25 +108,25 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editRecordDescriptor.equals(e.editRecordDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the record with. Each non-empty field value will replace the
+     * corresponding field value of the record.
      */
-    public static class EditPersonDescriptor {
+    public static class EditRecordDescriptor {
         private Name name;
         private BloodSugar bloodSugar;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditRecordDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditRecordDescriptor(EditRecordDescriptor toCopy) {
             setName(toCopy.name);
             setBloodSugar(toCopy.bloodSugar);
             setTags(toCopy.tags);
@@ -180,12 +180,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditRecordDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditRecordDescriptor e = (EditRecordDescriptor) other;
 
             return getName().equals(e.getName())
                     && getBloodSugar().equals(e.getBloodSugar())

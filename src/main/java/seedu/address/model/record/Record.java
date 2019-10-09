@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.record;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Record in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Record {
 
     // Identity fields
     private final Name name;
@@ -24,7 +24,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, BloodSugar bloodSugar, Set<Tag> tags) {
+    public Record(Name name, BloodSugar bloodSugar, Set<Tag> tags) {
         requireAllNonNull(name, bloodSugar, tags);
         this.name = name;
         this.bloodSugar = bloodSugar;
@@ -48,22 +48,22 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name and have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both records of the same name and have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two records.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameRecord(Record otherRecord) {
+        if (otherRecord == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && otherPerson.getBloodSugar().equals(getBloodSugar());
+        return otherRecord != null
+                && otherRecord.getName().equals(getName())
+                && otherRecord.getBloodSugar().equals(getBloodSugar());
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both records have the same identity and data fields.
+     * This defines a stronger notion of equality between two records.
      */
     @Override
     public boolean equals(Object other) {
@@ -71,14 +71,14 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Record)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getBloodSugar().equals(getBloodSugar())
-                && otherPerson.getTags().equals(getTags());
+        Record otherRecord = (Record) other;
+        return otherRecord.getName().equals(getName())
+                && otherRecord.getBloodSugar().equals(getBloodSugar())
+                && otherRecord.getTags().equals(getTags());
     }
 
     @Override

@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.record;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's blood sugar in the records.
+ * Represents a Record's blood sugar in the records.
  * Guarantees: immutable; is valid as declared in {@link #isValidBloodSugar(String)}
  */
 public class BloodSugar {
